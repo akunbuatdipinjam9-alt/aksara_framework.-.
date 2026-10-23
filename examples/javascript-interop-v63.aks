@@ -1,0 +1,4 @@
+gunakan javascript
+# Instal paket: node cli.js paket tambah js:lodash
+ingat lodash sebagai tunggu modul_js("lodash")
+tampilkan lodash.sum([10, 20, 30])

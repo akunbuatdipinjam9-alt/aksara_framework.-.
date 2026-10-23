@@ -1,0 +1,38 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const Compiler=require('../compiler.js');
+const Runtime=require('../runtime.js');
+global.AksaraRuntime=Runtime;
+assert(Compiler.builtins.includes('hardware_api'));
+const code='gunakan hardware\ningat perangkat sebagai hardware_api()\ntampilkan perangkat.sistem.info().bahasa';
+const result=Compiler.compile(code,{strict:true});
+assert(!result.diagnostics.some(d=>d.severity==='error'),JSON.stringify(result.diagnostics));
+const saved={document:global.document,navigator:global.navigator,Notification:global.Notification};
+const tracks=[{stopped:false,stop(){this.stopped=true}}];
+const store=new Map();
+const mockNav={language:'id-ID',mediaDevices:{getUserMedia:async options=>({options,getTracks:()=>tracks})},getGamepads:()=>[],vibrate:n=>n===100,clipboard:{writeText:async x=>x,readText:async()=> 'ok'},geolocation:{getCurrentPosition:cb=>cb({coords:{latitude:1,longitude:2,accuracy:3}})}};
+Object.defineProperty(global,'document',{configurable:true,value:{}});
+Object.defineProperty(global,'navigator',{configurable:true,value:mockNav});
+Object.defineProperty(global,'localStorage',{configurable:true,value:{setItem:(k,v)=>store.set(k,v),getItem:k=>store.get(k)??null,removeItem:k=>store.delete(k)}});
+const rt=Runtime();
+assert.throws(()=>rt.hardwareAPI(),/gunakan hardware/);
+rt.enable('hardware');
+const hw=rt.hardwareAPI();
+assert.equal(hw.sistem.info().bahasa,'id-ID');
+assert.equal(hw.dukungan().kamera,true);
+assert.equal(hw.dukungan().usb,false);
+assert.deepEqual(hw.gamepad.daftar(),[]);
+assert.equal(hw.getaran.getar(100),true);
+assert.throws(()=>hw.getaran.getar(6000),/5000/);
+// Unsupported APIs reject their promises.
+hw.penyimpanan.simpan('uji',{x:2});assert.equal(hw.penyimpanan.baca('uji').x,2);
+hw.penyimpanan.hapus('uji');assert.equal(hw.penyimpanan.baca('uji'),null);
+(async()=>{
+ await assert.rejects(hw.usb.pilih(),/tidak didukung/);
+ const stream=await hw.kamera.buka();assert.deepEqual(stream.options,{video:true});hw.kamera.tutup(stream);assert(tracks[0].stopped);
+ assert.equal((await hw.lokasi.ambil()).lintang,1);
+ assert.equal(await hw.clipboard.baca(),'ok');
+ console.log('v6.2 hardware: compiler, permission-gated browser facade, media, storage, location, clipboard, unsupported API passed');
+})().catch(e=>{console.error(e);process.exitCode=1});

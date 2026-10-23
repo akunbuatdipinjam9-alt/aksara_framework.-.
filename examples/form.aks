@@ -1,0 +1,7 @@
+gunakan web
+buat halaman bernama "Form Aksara"
+buat judul "Isi namamu"
+buat masukan "Nama"
+ketika masukan "Nama" berubah
+    ubah judul menjadi "Halo, " + web_nilai("Nama")
+selesai

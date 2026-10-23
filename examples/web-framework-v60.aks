@@ -1,0 +1,16 @@
+gunakan web
+buat halaman bernama "Aksara Web Framework"
+
+fungsi tampil_utama()
+    web_judul("Beranda Aksara")
+    web_teks("Routing dari bahasa Aksara")
+selesai
+
+fungsi tampil_tentang()
+    web_judul("Tentang")
+    web_teks("Web Framework Aksara v6")
+selesai
+
+web_rute("/", tampil_utama)
+web_rute("/tentang", tampil_tentang)
+web_mulai_rute()

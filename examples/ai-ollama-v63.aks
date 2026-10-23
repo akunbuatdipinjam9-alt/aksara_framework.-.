@@ -1,0 +1,4 @@
+gunakan ai
+# Instal Ollama dan unduh model: ollama pull llama3.2
+ingat jawaban sebagai tunggu ai_tanya("Jelaskan Aksara dalam satu kalimat", "llama3.2")
+tampilkan jawaban

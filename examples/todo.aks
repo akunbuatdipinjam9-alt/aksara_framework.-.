@@ -1,0 +1,20 @@
+gunakan web
+gunakan penyimpanan
+buat halaman bernama "Tugasku"
+ buat judul "Daftar Tugas"
+buat masukan "Tugas baru"
+buat tombol "Tambah"
+ingat tugas sebagai tunggu baca_data("tugas-saya")
+jika tugas == kosong maka
+    tugas = []
+selesai
+web_daftar("Tugas tersimpan", tugas)
+ketika tombol "Tambah" diklik
+    ingat baru_tugas sebagai web_nilai("Tugas baru")
+    jika panjang(baru_tugas) > 0 maka
+        tambah(tugas, baru_tugas)
+        web_ubah_daftar("Tugas tersimpan", tugas)
+        tunggu simpan_data("tugas-saya", tugas)
+        web_bersihkan_masukan("Tugas baru")
+    selesai
+selesai

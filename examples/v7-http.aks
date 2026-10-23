@@ -1,0 +1,8 @@
+# Membutuhkan jaringan internet saat dijalankan.
+gunakan jaringan
+respons = tunggu ambil_api("https://jsonplaceholder.typicode.com/todos/1", {timeout:5000})
+jika respons.berhasil maka
+    tampilkan respons.data.title
+jika tidak
+    tampilkan "HTTP status {respons.status}"
+selesai

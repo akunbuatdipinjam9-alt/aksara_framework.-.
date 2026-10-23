@@ -1,0 +1,3 @@
+# Konfigurasi dari variabel lingkungan, bukan hardcoded di source
+port = baca_env("APP_PORT", "3000")
+tampilkan "Port aplikasi: {port}"

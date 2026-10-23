@@ -1,0 +1,62 @@
+{
+  "name": "aksara-studio-electron",
+  "version": "7.0.0-beta.1",
+  "private": true,
+  "description": "Aksara 7: language test blocks, file APIs, HTTP client, bounded async tasks, project templates",
+  "scripts": {
+    "start": "node cli.js serve 4173",
+    "test": "node tests/v7-features.test.cjs && node tests/v65-features.test.cjs && node tests/v64-simplicity.test.cjs && node tests/smoke.js && node tests/advanced.js && node tests/v2.test.js && node tests/v22.test.js && node tests/v25.test.js && node tests/v32.test.js && node tests/v35.test.js && node tests/v4.test.cjs && node tests/v52.test.cjs && node tests/v53.test.cjs && node tests/v60.test.cjs && node tests/v61.test.cjs && node tests/v61-web.test.cjs && node tests/v61-fullstack.test.cjs && node tests/v62-hardware.test.cjs && node tests/v63-interop.test.cjs && node tests/cli.test.js && node tests/stability.test.cjs && node tests/runtime-stability.test.cjs && node tests/runner-stability.test.cjs && node tests/io-stability.test.cjs",
+    "demo": "node cli.js run examples/data.aks",
+    "desktop": "electron .",
+    "pack:win": "electron-builder --win nsis portable",
+    "pack:linux": "electron-builder --linux AppImage",
+    "test:desktop": "node tests/electron.test.cjs && node tests/v4.test.cjs",
+    "pack:dir": "electron-builder --dir",
+    "test:browser": "node tests/browser-ui.test.cjs",
+    "test:desktop-ui": "electron tests/electron-ui.test.cjs && electron tests/electron-main.test.cjs"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "license": "UNLICENSED",
+  "bin": {
+    "aksara": "./cli.js"
+  },
+  "main": "electron/main.cjs",
+  "devDependencies": {
+    "electron": "33.4.11",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "id.aksara.studio",
+    "productName": "Aksara Studio",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "**/*",
+      "!release/**",
+      "!tests/**",
+      "!examples/**"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "allowScripts": {
+    "electron@33.4.11": true
+  }
+}

@@ -1,0 +1,7 @@
+# Aksara 2.0 — pengujian kode
+tetap daftar sebagai [2, 4, 6]
+pastikan(panjang(daftar) == 3, "Ukuran salah")
+pastikan(4 dalam daftar, "Angka 4 harus ada")
+pastikan(jumlah(daftar) == 12, "Penjumlahan salah")
+pastikan(kosong ?? 5 == 5, "Operator cadangan gagal")
+tampilkan "Semua tes Aksara berhasil"

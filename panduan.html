@@ -1,0 +1,76 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Panduan — Aksara 2.5</title><style>
+:root{color-scheme:dark;--background:#0b101b;--panel:#131e30;--border:#293750;--text:#e9eeff;--muted:#95a6c5;--accent:#8291ff}*{box-sizing:border-box}body{background:var(--background);color:var(--text);font:15px/1.7 system-ui,-apple-system,'Segoe UI',sans-serif;margin:0}.layout{max-width:1040px;margin:auto;padding:32px 24px 80px}header{border-bottom:1px solid var(--border);padding-bottom:28px;margin-bottom:26px}.eyebrow{letter-spacing:2px;color:var(--accent);font-size:12px;font-weight:700}h1{font-size:40px;letter-spacing:-1px;margin:8px 0}h2{font-size:21px;margin-top:0}p{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}.card{border:1px solid var(--border);padding:22px;border-radius:14px;background:var(--panel)}pre{background:#0a1423;border:1px solid #26354d;padding:15px;overflow:auto;border-radius:9px;color:#cbdefa;font:13px/1.7 Consolas,monospace}a{color:#a1afff}.tag{display:inline-block;border-radius:99px;border:1px solid #364878;padding:4px 12px;color:#b9c4ff;font-size:12px}ul{padding-left:20px}.footer{color:#8293ae;margin-top:35px;font-size:13px}</style></head><body><div class="layout"><header><span class="eyebrow">DOKUMENTASI / AKSARA</span><h1>Panduan Bahasa Aksara</h1><p>Versi 2.5 — dari variabel sampai aplikasi web, dengan sintaks Bahasa Indonesia terstruktur.</p><span class="tag">Compiler → JavaScript ES2020+</span></header><div class="grid">
+<section class="card"><h2>v3.2 — Pemeriksaan tipe</h2><pre>ingat umur: angka sebagai 14
+ingat nama: teks sebagai "Akhtar"
+tampilkan nama + umur
+
+# Compiler menolak:
+# ingat umur: angka sebagai "empat"</pre><p>Centang <b>Ketat</b> untuk mendeteksi nama yang belum dideklarasikan. Buka tab Tokens untuk melihat informasi baris/kolom lexer.</p></section><section class="card"><h2>CLI pemeriksaan</h2><pre>node cli.js tokens examples/typed.aks
+node cli.js check examples/typed.aks --ketat
+node cli.js run examples/typed.aks</pre><p>Type checker masih bertahap. Dokumentasi teknis lengkap ada di GRAMMAR.md.</p></section><section class="card"><h2>Variabel & fungsi</h2><pre>ingat nama sebagai "Akhtar"
+fungsi sapa(nama)
+    kembalikan "Halo " + nama
+selesai
+tampilkan sapa(nama)</pre></section>
+<section class="card"><h2>Percabangan</h2><pre>ingat nilai sebagai 83
+jika nilai >= 90 maka
+    tampilkan "A"
+atau jika nilai >= 75 maka
+    tampilkan "B"
+jika tidak
+    tampilkan "C"
+selesai</pre></section>
+<section class="card"><h2>Perulangan</h2><pre>untuk i dari 1 sampai 5 langkah 2
+    tampilkan i
+selesai
+
+ingat data sebagai [1, 2, 3]
+untuk setiap x dalam data
+    tampilkan x
+selesai</pre></section>
+<section class="card"><h2>Pengolahan data</h2><pre>fungsi genap(n)
+    kembalikan n % 2 == 0
+selesai
+ingat data sebagai [1,2,3,4]
+tampilkan saring(data,genap)
+tampilkan rata_rata(data)</pre></section>
+<section class="card"><h2>Class & object</h2><pre>kelas Orang
+    fungsi mulai(nama)
+        diri.nama = nama
+    selesai
+    fungsi sapa()
+        tampilkan diri.nama
+    selesai
+selesai
+ingat p sebagai baru Orang("A")
+p.sapa()</pre></section>
+<section class="card"><h2>Async & Promise</h2><pre>asinkron fungsi kerja(n)
+    tunggu jeda(20)
+    kembalikan n * 2
+selesai
+tampilkan tunggu serentak([kerja(2), kerja(4)])</pre><p>Pemanggilan dan literal ditulis dalam satu baris pada parser v3.2.</p></section>
+<section class="card"><h2>Website natural</h2><pre>gunakan web
+buat judul "Halo Aksara"
+buat tombol "Klik"
+ketika tombol "Klik" diklik
+    ubah judul menjadi "Berhasil!"
+selesai</pre></section>
+<section class="card"><h2>Modul</h2><pre># pustaka.aks
+ekspor fungsi halo()
+    kembalikan "Halo"
+selesai
+
+# program.aks
+impor halo dari "pustaka"
+tampilkan halo()</pre></section>
+<section class="card"><h2>Error handling</h2><pre>coba tangkap kesalahan
+    lempar "Ups!"
+tangkap
+    tampilkan kesalahan
+akhirnya
+    tampilkan "Selesai"
+selesai</pre></section>
+<section class="card"><h2>CLI (Node.js)</h2><pre>node cli.js check contoh.aks
+node cli.js run contoh.aks
+node cli.js build contoh.aks out.js</pre><p>Tanpa Python. Output JavaScript dapat dijalankan di Node.js.</p></section>
+</div><p class="footer">Aksara v3.2 adalah bahasa eksperimen dengan grammar yang ditentukan, bukan penerjemah semua kalimat Indonesia. Browser sandbox membatasi operasi file lokal dan akses lintas origin.</p></div></body></html>

@@ -1,0 +1,61 @@
+'use strict';
+// End-to-end desktop test: real main, preload, renderer, filesystem and task processes.
+// Only folder selection and window visibility are replaced for unattended testing.
+const electron=require('electron'),Module=require('node:module');
+const fs=require('node:fs'),os=require('node:os'),path=require('node:path'),assert=require('node:assert/strict');
+const temp=fs.mkdtempSync(path.join(os.tmpdir(),'aksara-native-stable-'));
+const W=require('../electron/workspace.cjs');W.createProject(temp);
+const report=(status,detail='')=>{if(process.env.AKSARA_ELECTRON_TEST_RESULT)fs.writeFileSync(process.env.AKSARA_ELECTRON_TEST_RESULT,JSON.stringify({status,detail},null,2))};
+report('starting');
+const until=async predicate=>{const end=Date.now()+12000;while(!await predicate()){if(Date.now()>end)throw Error('Native desktop test timed out');await new Promise(resolve=>setTimeout(resolve,25))}};
+const handlers=new Map();let win;
+class HiddenWindow extends electron.BrowserWindow{show(){}}
+const originalLoad=Module._load;
+const native={...electron,BrowserWindow:HiddenWindow,dialog:{...electron.dialog,showOpenDialog:async()=>({canceled:false,filePaths:[temp]})},ipcMain:{handle:(name,handler)=>{handlers.set(name,handler);electron.ipcMain.handle(name,handler)}}};
+Module._load=function(name,...args){return name==='electron'?native:originalLoad.call(this,name,...args)};
+electron.app.disableHardwareAcceleration();
+electron.app.on('browser-window-created',(_event,window)=>{if(!win)win=window});
+require('../electron/main.cjs');
+Module._load=originalLoad;
+(async()=>{
+ await electron.app.whenReady();
+ await until(()=>!!win&&!win.webContents.isLoading());
+ const js=code=>win.webContents.executeJavaScript(code);
+ await until(()=>js('!!document.getElementById("workspaceTree")'));
+ const command=name=>win.webContents.send('aksara:command',name);
+ const edit=code=>js('document.getElementById("source").value='+JSON.stringify(code)+';document.getElementById("source").dispatchEvent(new Event("input",{bubbles:true}))');
+ command('open-folder');await until(()=>js('document.getElementById("workspaceName").textContent.includes('+JSON.stringify(path.basename(temp))+')'));
+ await edit('tampilkan "native test"\n');command('save-file');
+ await until(()=>fs.readFileSync(path.join(temp,'program.aks'),'utf8').includes('native test'));
+ const denied=await handlers.get('aksara:save-file')({sender:{}},{name:'program.aks',content:'changed by other window'});
+ assert.equal(denied.ok,false);assert.match(fs.readFileSync(path.join(temp,'program.aks'),'utf8'),/native test/);
+ command('task-run');await until(()=>js('document.getElementById("nativeStatus").textContent==="Task berhasil"'));
+ assert.match(await js('document.getElementById("terminal").textContent'),/native test/);
+ command('task-build');await until(()=>fs.existsSync(path.join(temp,'program.js')));
+ await until(()=>js('document.getElementById("nativeStatus").textContent==="Task berhasil"'));
+ assert.ok(fs.existsSync(path.join(temp,'program.js.map')));
+ await edit('gunakan server\ningat app sebagai server_buat(0)\ntampilkan tunggu app.jalankan()\n');
+ command('task-run');
+ await until(()=>js('/http:\\/\\/127\\.0\\.0\\.1:\\d+/.test(document.getElementById("terminal").textContent)'));
+ const output=await js('document.getElementById("terminal").textContent');
+ const url=output.match(/http:\/\/127\.0\.0\.1:\d+/)[0];
+ assert.equal((await fetch(url)).status,404);
+ await new Promise(resolve=>{win.webContents.once('did-finish-load',resolve);win.webContents.reload()});
+ await until(()=>js('document.getElementById("workspaceName").textContent.includes('+JSON.stringify(path.basename(temp))+')'));
+ command('task-run');await until(()=>js('document.getElementById("nativeStatus").textContent.includes("Task masih berjalan")'));
+ assert.equal((await fetch(url)).status,404,'Reload lost the running server');
+ command('task-stop');await until(()=>js('document.getElementById("terminal").textContent.includes("[SELESAI]")'));
+ let alive=true;
+ for(let i=0;i<20;i++){try{await fetch(url,{signal:AbortSignal.timeout(300)})}catch{alive=false;break}await new Promise(resolve=>setTimeout(resolve,50))}
+ assert.equal(alive,false,'Native Stop left the HTTP server alive');
+ await js('window.prompt=()=>"util.aks";document.getElementById("newFile").click()');
+ await until(()=>fs.existsSync(path.join(temp,'util.aks')));
+ await until(()=>js('window.AksaraStudioBridge.activeName()==="util.aks"'));
+ await edit('ekspor ingat nilai_uji sebagai 7\n');command('save-file');
+ await until(()=>fs.readFileSync(path.join(temp,'util.aks'),'utf8').includes('nilai_uji'));
+ await js('window.confirm=()=>true;document.getElementById("deleteFile").click()');
+ await until(()=>!fs.existsSync(path.join(temp,'util.aks')));
+ assert.equal((await js('window.aksaraDesktop.reload()')).ok,true);
+ report('passed');console.log('Native Electron: real main/preload/UI, project open, save, IPC sender check, Run, Build, server Stop and module create/delete passed');
+ fs.rmSync(temp,{recursive:true,force:true});electron.app.exit(0);
+})().catch(error=>{report('failed',error.stack||String(error));console.error(error);try{fs.rmSync(temp,{recursive:true,force:true})}catch{}electron.app.exit(1)});

@@ -1,0 +1,13 @@
+# Aksara v6.4: tidak perlu menghafal banyak sintaks.
+nama = "Akhtar"
+umur = 14
+tampilkan "Halo, {nama}!"
+tampilkan "Umur: {umur} tahun"
+
+umur = umur + 1
+tampilkan "Tahun depan: {umur} tahun"
+
+jika umur lebih dari 14 maka
+  pesan = "Sudah bertambah"
+  tampilkan "{pesan}"
+selesai

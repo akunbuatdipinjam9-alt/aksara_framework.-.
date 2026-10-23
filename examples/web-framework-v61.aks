@@ -1,0 +1,32 @@
+# Aksara v6.1: reusable components, props, CSS responsif, route dinamis
+# Jalankan di Preview Web Aksara Studio.
+gunakan web
+buat halaman bernama "Aksara Web Framework 2.0"
+
+web_gaya_kelas("kartu", {"background-color": "#1e293b", "color": "#ffffff", "padding": "20px", "border-radius": "14px"})
+web_gaya_kelas("tata", {"display": "grid", "grid-template-columns": "1fr", "gap": "12px"})
+web_responsif(700, "tata", {"grid-template-columns": "1fr 1fr"})
+
+fungsi kartu_info(properti)
+    web_teks("Halo, " + properti.nama)
+selesai
+
+fungsi tampil_utama(parameter)
+    web_judul("Beranda Aksara")
+    buat wadah "kumpulan"
+    atur kelas "kumpulan" menjadi "tata"
+    web_pasang("KartuInfo", {nama: "Akhtar"})
+    web_pasang("KartuInfo", {nama: "Pengunjung"})
+    tutup wadah
+    web_tautan("Lihat profil", "/profil/7")
+selesai
+
+fungsi tampil_profil(parameter)
+    web_judul("Profil #" + parameter.id)
+    web_tautan("Kembali", "/")
+selesai
+
+web_komponen("KartuInfo", kartu_info)
+web_rute("/", tampil_utama)
+web_rute("/profil/:id", tampil_profil)
+web_mulai_rute()

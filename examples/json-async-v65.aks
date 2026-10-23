@@ -1,0 +1,8 @@
+# File JSON lokal dibaca secara asinkron
+# Jalankan dari folder proyek: node cli.js run examples/json-async-v65.aks
+pengguna = tunggu baca_file_json("pengguna-v65.json")
+tampilkan pengguna.nama
+
+# Jalankan dua timer bersamaan
+hasil = tunggu bersamaan([jeda(50), jeda(50)])
+tampilkan "Selesai: {hasil}"

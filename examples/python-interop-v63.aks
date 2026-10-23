@@ -1,0 +1,5 @@
+gunakan python
+# Siapkan venv: node cli.js paket py:siapkan
+# Instal NumPy: node cli.js paket tambah py:numpy
+ingat nilai sebagai python_panggil("statistics", "mean", [[10, 20, 30, 40]])
+tampilkan nilai

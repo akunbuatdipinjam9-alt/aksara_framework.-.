@@ -1,0 +1,6 @@
+gunakan web
+buat halaman bernama "Dasbor Aksara"
+buat judul "Statistik pengunjung"
+ingat angka sebagai [120, 165, 132, 210, 250, 221, 310]
+buat kartu "Total: " + jumlah(angka)
+buat grafik "Trafik" dari angka

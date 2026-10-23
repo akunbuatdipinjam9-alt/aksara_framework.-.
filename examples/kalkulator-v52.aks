@@ -1,0 +1,36 @@
+gunakan web
+buat halaman bernama "Kalkulator Aksara 5.2"
+atur latar halaman menjadi "#101827"
+buat judul "Kalkulator Aksara"
+atur warna judul menjadi "#38bdf8"
+buat teks "Isi kedua angka lalu pilih operasi."
+buat masukan angka "Angka pertama"
+buat masukan angka "Angka kedua"
+buat tombol "Tambah"
+buat tombol "Kurang"
+buat tombol "Kali"
+buat tombol "Bagi"
+ketika tombol "Tambah" diklik
+    ingat a sebagai web_angka("Angka pertama")
+    ingat b sebagai web_angka("Angka kedua")
+    ubah judul menjadi "Hasil: " + (a + b)
+selesai
+ketika tombol "Kurang" diklik
+    ingat a sebagai web_angka("Angka pertama")
+    ingat b sebagai web_angka("Angka kedua")
+    ubah judul menjadi "Hasil: " + (a - b)
+selesai
+ketika tombol "Kali" diklik
+    ingat a sebagai web_angka("Angka pertama")
+    ingat b sebagai web_angka("Angka kedua")
+    ubah judul menjadi "Hasil: " + (a * b)
+selesai
+ketika tombol "Bagi" diklik
+    ingat a sebagai web_angka("Angka pertama")
+    ingat b sebagai web_angka("Angka kedua")
+    jika b == 0 maka
+        ubah judul menjadi "Tidak bisa dibagi nol!"
+    jika tidak
+        ubah judul menjadi "Hasil: " + (a / b)
+    selesai
+selesai

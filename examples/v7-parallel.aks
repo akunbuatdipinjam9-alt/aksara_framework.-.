@@ -1,0 +1,6 @@
+fungsi asinkron hitung(n)
+    tunggu jeda(40)
+    kembalikan n * n
+selesai
+hasil = tunggu kerjakan_paralel([1,2,3,4,5,6], hitung, 3)
+tampilkan hasil

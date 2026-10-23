@@ -1,0 +1,9 @@
+fungsi asinkron hitung(x)
+    tunggu tunda(20)
+    kembalikan x * 2
+selesai
+
+ingat hasil sebagai tunggu tunggu_batas(hitung(21), 1000)
+tampilkan hasil
+ingat banyak sebagai tunggu semua_selesai([hitung(2), hitung(4)])
+tampilkan banyak

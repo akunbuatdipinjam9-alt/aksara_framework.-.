@@ -1,0 +1,8 @@
+# Aksara 2.5 — tipe data eksplisit
+ingat nama: teks sebagai "Aksara 2.5"
+ingat versi: angka sebagai 25
+ingat aktif: logika sebagai benar
+ingat skor: daftar sebagai [90, 95, 100]
+
+tampilkan nama
+tampilkan "Rata-rata: " + rata_rata(skor)

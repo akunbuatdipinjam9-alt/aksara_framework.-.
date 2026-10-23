@@ -1,0 +1,15 @@
+gunakan server
+
+fungsi halo(req, res)
+    res.json({pesan: "Halo dari Aksara v6!", berhasil: benar})
+selesai
+
+fungsi pengguna(req, res)
+    res.json({id: req.parameter.id, nama: "Pengguna Aksara"})
+selesai
+
+ingat app sebagai server_buat(3000)
+app.get("/api/halo", halo)
+app.get("/api/pengguna/:id", pengguna)
+ingat alamat sebagai tunggu app.jalankan()
+tampilkan "Server berjalan di " + alamat

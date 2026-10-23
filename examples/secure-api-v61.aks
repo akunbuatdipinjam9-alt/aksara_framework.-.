@@ -1,0 +1,34 @@
+# Aksara v6.1: backend SQLite + HTTP yang diamankan untuk lokal
+# Jalankan dengan: node cli.js run examples/secure-api-v61.aks
+# Contoh lokal untuk belajar, bukan login/auth produksi.
+
+gunakan server
+gunakan database
+
+ingat db sebagai database_buka("tugas.db")
+db.jalankan("CREATE TABLE IF NOT EXISTS tugas (id INTEGER PRIMARY KEY, judul TEXT NOT NULL)")
+
+fungsi daftar_tugas(req, res)
+    res.json(db.semua("SELECT id, judul FROM tugas ORDER BY id DESC"))
+selesai
+
+fungsi tambah_tugas(req, res)
+    ingat judul sebagai req.body.judul
+    jika tipe(judul) != "teks" maka
+        res.status(400).json({kesalahan: "Judul harus teks"})
+        kembalikan
+    selesai
+    jika panjang(judul) > 120 maka
+        res.status(400).json({kesalahan: "Judul maksimal 120 karakter"})
+        kembalikan
+    selesai
+    ingat hasil sebagai db.jalankan("INSERT INTO tugas (judul) VALUES (?)", [judul])
+    res.status(201).json({berhasil: benar, id: hasil.id_terakhir})
+selesai
+
+ingat app sebagai server_buat(3000)
+app.keamanan({bodyLimit: 8192, timeout: 5000, maxRequests: 90, windowMs: 60000, corsOrigins: ["http://localhost:4173"]})
+app.get("/api/tugas", daftar_tugas)
+app.post("/api/tugas", tambah_tugas)
+ingat alamat sebagai tunggu app.jalankan()
+tampilkan "API tugas aktif di " + alamat

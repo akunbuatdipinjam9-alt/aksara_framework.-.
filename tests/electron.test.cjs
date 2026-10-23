@@ -1,0 +1,10 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const root=path.resolve(__dirname,'..');
+assert.equal(require('../package.json').main,'electron/main.cjs');
+for(const f of ['electron/main.cjs','electron/preload.cjs','electron/desktop-ui.js'])assert.ok(fs.existsSync(path.join(root,f)));
+const main=fs.readFileSync(path.join(root,'electron/main.cjs'),'utf8');
+for(const s of ['nodeIntegration:false','contextIsolation:true','sandbox:true'])assert.ok(main.includes(s));
+console.log('Electron integration: 7 checks passed');

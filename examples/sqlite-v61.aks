@@ -1,0 +1,6 @@
+gunakan database
+ingat db sebagai database_buka("contoh.db")
+db.jalankan("CREATE TABLE IF NOT EXISTS tugas (id INTEGER PRIMARY KEY, nama TEXT)")
+db.jalankan("INSERT INTO tugas (nama) VALUES (?)", ["Belajar Aksara"])
+tampilkan db.semua("SELECT id, nama FROM tugas")
+db.tutup()

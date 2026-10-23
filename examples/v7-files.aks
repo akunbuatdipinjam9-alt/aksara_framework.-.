@@ -1,0 +1,6 @@
+# Jalankan di folder examples: node ../cli.js run v7-files.aks
+# Akses file dibatasi pada folder proyek dan maksimal 1 MB.
+tunggu simpan_file("catatan-v7.txt", "Halo dari Aksara 7!")
+tampilkan tunggu baca_file("catatan-v7.txt")
+file = tunggu daftar_file(".")
+tampilkan "Jumlah berkas: {file}"

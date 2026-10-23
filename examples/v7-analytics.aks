@@ -1,0 +1,5 @@
+# Analitik data tanpa pustaka tambahan
+warna = ["merah", "biru", "merah", "hijau", "merah"]
+tampilkan frekuensi(warna)
+orang = [{kelas:"9A",nama:"Ani"},{kelas:"9B",nama:"Budi"},{kelas:"9A",nama:"Cici"}]
+tampilkan kelompokkan(orang,"kelas")

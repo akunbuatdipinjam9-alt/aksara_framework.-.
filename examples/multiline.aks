@@ -1,0 +1,8 @@
+# Aksara 2.0 — objek multiline
+ingat orang sebagai {
+    "nama": "Akhtar",
+    "nilai": [
+        85, 95, 100
+    ]
+}
+tampilkan cetak_json(orang)

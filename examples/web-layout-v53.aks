@@ -1,0 +1,11 @@
+gunakan web
+buat halaman bernama "Aksara v5.3"
+atur latar halaman menjadi "#0b1120"
+buat wadah "panel"
+buat judul "Halo dari Aksara v5.3"
+buat teks "Sekarang ada wadah dan styling."
+atur kelas "panel" menjadi "kartu"
+atur gaya "panel" properti "padding" menjadi "24px"
+atur gaya "panel" properti "border-radius" menjadi "16px"
+atur gaya "panel" properti "background-color" menjadi "#1e293b"
+tutup wadah

@@ -1,0 +1,22 @@
+# Aksara v1.7 — Olah nilai siswa
+ingat nilai sebagai [70, 88, 92, 65, 100]
+
+fungsi lulus(n)
+    kembalikan n >= 75
+selesai
+
+ingat hasil sebagai saring(nilai, lulus)
+tampilkan "Nilai lulus: " + hasil
+tampilkan "Rata-rata: " + rata_rata(nilai)
+
+jika rata_rata(nilai) >= 90 maka
+    tampilkan "Sangat baik"
+atau jika rata_rata(nilai) >= 75 maka
+    tampilkan "Baik"
+jika tidak
+    tampilkan "Perlu belajar"
+selesai
+
+untuk i dari 1 sampai 3
+    tampilkan "Perulangan " + i
+selesai

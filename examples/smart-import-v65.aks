@@ -1,0 +1,5 @@
+# Smart Import Python: cd examples lalu node ../cli.js paket py:siapkan
+# lalu: node ../cli.js run smart-import-v65.aks
+gunakan python "random"
+angka = tunggu random.randint(1, 100)
+tampilkan "Angka acak: {angka}"

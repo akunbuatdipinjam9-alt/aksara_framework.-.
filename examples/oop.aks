@@ -1,0 +1,16 @@
+kelas Hewan
+    fungsi mulai(nama)
+        diri.nama = nama
+    selesai
+    fungsi sapa()
+        tampilkan "Halo " + diri.nama
+    selesai
+selesai
+kelas Kucing mewarisi Hewan
+    fungsi suara()
+        tampilkan "Meong!"
+    selesai
+selesai
+ingat kucing sebagai baru Kucing("Mochi")
+kucing.sapa()
+kucing.suara()

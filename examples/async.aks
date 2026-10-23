@@ -1,0 +1,8 @@
+# Aksara v1.7 — Promise.all
+fungsi asinkron hitung(angka)
+    tunggu jeda(10)
+    kembalikan angka * 2
+selesai
+
+ingat hasil sebagai tunggu serentak([hitung(5), hitung(7), hitung(9)])
+tampilkan hasil

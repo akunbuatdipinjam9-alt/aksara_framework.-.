@@ -1,0 +1,26 @@
+gunakan web
+gunakan hardware
+
+buat halaman bernama "Aksara Hardware v6.2"
+buat judul "Hardware API"
+buat teks "Periksa kemampuan perangkat Anda. Izin diminta hanya ketika fitur digunakan."
+
+ingat perangkat sebagai hardware_api()
+ingat informasi sebagai perangkat.sistem.info()
+tampilkan informasi
+
+buat tombol "Lihat dukungan hardware"
+ketika tombol "Lihat dukungan hardware" diklik
+    tampilkan perangkat.dukungan()
+selesai
+
+buat tombol "Baca lokasi"
+ketika tombol "Baca lokasi" diklik
+    coba
+        ingat lokasi sebagai tunggu perangkat.lokasi.ambil()
+        tampilkan lokasi
+    tangkap
+    sebagai kesalahan
+        tampilkan "Lokasi tidak tersedia: " + kesalahan
+    selesai
+selesai

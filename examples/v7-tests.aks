@@ -1,0 +1,8 @@
+uji "matematika dasar"
+    pastikan(2 + 2 == 4, "penjumlahan salah")
+selesai
+
+uji "teks dan variabel"
+    nama = "Aksara"
+    pastikan("Halo, {nama}" == "Halo, Aksara", "interpolasi gagal")
+selesai

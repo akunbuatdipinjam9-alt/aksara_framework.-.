@@ -1,0 +1,3 @@
+# Coba `node cli.js check examples/strict.aks --ketat`
+ingat nama: teks sebagai "Akhtar"
+tampilkan "Halo, " + nama

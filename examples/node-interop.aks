@@ -1,0 +1,5 @@
+# Aksara 2.0 — panggil modul JavaScript Node.js sungguhan
+gunakan javascript
+ingat crypto sebagai tunggu modul_js("node:crypto")
+ingat uuid sebagai crypto.randomUUID()
+tampilkan "UUID: " + uuid
